@@ -1,23 +1,30 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Teslo Shop API
 
-# Teslo API
+E-commerce REST API built with **NestJS**, **TypeORM** and **PostgreSQL**. It covers the backend of an online clothing store: authentication with roles, a product catalog with images, file uploads, seed data and a real-time WebSocket channel.
 
-1. Levantar la base de datos
-2. ``` yarn install ```
-3. Clonar el archivo ``` .env.template ``` y renombrarlo a ``` .env ``` 
-4. Cambiar las variables de entorno
-5. Levantar la base de datos
+## Features
 
+- **Auth:** sign-up and login with hashed passwords, JWT strategy, custom `@Auth()` decorator and role guard (`admin`, `super-user`, `user`)
+- **Products:** CRUD with TypeORM entities and relations (product ↔ images), slugs, sizes, tags, pagination and search by id, slug or title
+- **Files:** image upload with type filtering and unique file names, served from `/api/files/product/:imageName`
+- **Seed:** `GET /api/seed` resets the database with demo users and products
+- **WebSockets:** Socket.IO gateway authenticated with JWT that tracks connected clients and broadcasts messages
+- **Validation and docs:** global `ValidationPipe` with DTOs and Swagger UI at `/api`
+
+## Tech stack
+
+NestJS · TypeScript · TypeORM · PostgreSQL · Passport JWT · bcrypt · Socket.IO · Swagger · Docker Compose
+
+## Getting started
+
+```bash
+git clone https://github.com/luisRodriguez21/teslo-shop.git
+cd teslo-shop
+yarn install
+
+cp .env.template .env     # fill in PORT, DB_* and JWT_SECRET
+docker compose up -d      # PostgreSQL
+yarn start:dev
 ```
-docker-compose up -d
-```
 
-6. Levantar: ``` yarn start:dev ```
-
-
-7. Ejecutar SEED: 
-``` 
-localhost:3000/api/seed 
-```
+Then load demo data with `GET http://localhost:3000/api/seed` and open the docs at `http://localhost:3000/api`.
